@@ -37,20 +37,30 @@ class PesertaController extends Controller
 
     public function prosestambahpeserta(Request $request){
 
+        //mendapatkan semua jumlah peserta yang telah didaftarkan
         $jmlhpesertadipesertas = DB::table('pesertas')
-                                    ->where('iddaftar', 1)
+                                    ->where('iddaftar', $request->input('iddaftar'))
                                     ->count();
+
+        //jumlah peserta yang didaftarkan di daftarlayanan
         $jmlhpesertadilayanan = DB::table('daftarlayanans')
-                                    ->where('iddaftar', 1)
+                                    ->where('iddaftar', $request->input('iddaftar'))
                                     ->select('jumlahpeserta')
                                     ->get();
-        $psrta;
+
+        //jumlah kapasitas
+        $jmlhkapasitas  = DB::table('kapasitas')
+                            ->join('layanans','layanans.idlayanan','=','kapasitas.idlayanan')
+                            ->join('daftarlayanans','daftarlayanans.idlayanan','=','layanans.idlayanan')
+                            ->where('daftarlayanans.iddaftar', $request->input('iddaftar'))
+                            ->get();
+                                
+        $psrta = '';
         foreach($jmlhpesertadilayanan as $jmlh){
             $psrta  = $jmlh->jumlahpeserta;
         }
 
-
-        if($psrta - $jmlhpesertadipesertas < $psrta && $psrta - $jmlhpesertadipesertas != 0){
+        if($jmlhpesertadipesertas < $psrta){
             $data = new Peserta();
             $data->iddaftar     = $request->input('iddaftar');
             $data->nama         = $request->input('nama');
