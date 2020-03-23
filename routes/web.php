@@ -34,7 +34,7 @@ Route::get('penyewaan','PenyewaanController@index');
 Route::get('prosesdaftarpenyewaan','PenyewaanController@prosesdaftarpenyewaan');
 
 
-//peserta
+
 Route::get('peserta','PesertaController@index');
 Route::get('tambahpeserta','PesertaController@tambahpeserta');
 Route::post('prosestambahpeserta', 'PesertaController@prosestambahpeserta');
