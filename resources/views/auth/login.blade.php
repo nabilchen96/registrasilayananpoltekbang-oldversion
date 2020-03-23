@@ -5,16 +5,16 @@
     <div class="contact_info">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="contact_details">
                         <div class="signup-image">
                             <figure><img width="100%" src="imgs/signup-image.jpg" alt="sing up image"></figure>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-sm-6">
                     <div class="contact_form_left">
-                        <div class="row">
+                        <div class="row col-sm-12">
                             <h1>Login</h1>
                             <br>
                             <form class="comment_form_inner" action="{{ url('/login') }}" method="post">
@@ -38,15 +38,16 @@
                                 </div>
                                 <div class="checkbox icheck">
                                     <label class="">
-                                        <input type="checkbox"> Remember Me
+                                        <input type="checkbox" name="remember"> Remember Me
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{url('password/reset')}}">Lupa Password ?</a>
                                     </label>
                                   </div> 
                                 
                                 <br>
                                 <div class="form-group">
-                                    <button class="btn btn-default submit_btn" type="submit">Masuk</button>
-                                    <a href="{{url('register')}}" class="btn btn-info submit_btn" type="submit">Registrasi</a>
+                                    <button class="btn btn-default submit_btn" style="
+                                    width: 160px;" type="submit">Masuk</button>
+                                    <a href="{{url('register')}}" style="width: 167px;" class="btn btn-info submit_btn" type="submit">Registrasi</a>
                                 </div>
                             </form>
                             

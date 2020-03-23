@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Daftarlayanan;
 use App\Peserta;
+use App\Tagihan;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -60,6 +61,7 @@ class PesertaController extends Controller
             $psrta  = $jmlh->jumlahpeserta;
         }
 
+        
         if($jmlhpesertadipesertas < $psrta){
             $data = new Peserta();
             $data->iddaftar     = $request->input('iddaftar');
@@ -74,9 +76,82 @@ class PesertaController extends Controller
             $data->ijazah       = $request->input('ijazah');
             $data->save();
 
-            return redirect('tambahpeserta');
+
+            //mendapatkan semua jumlah peserta yang telah didaftarkan
+            $jmlhpesertadipesertas = DB::table('pesertas')
+                    ->where('iddaftar', $request->input('iddaftar'))
+                    ->count();
+
+            //jumlah peserta yang didaftarkan di daftarlayanan
+            $jmlhpesertadilayanan = DB::table('daftarlayanans')
+                    ->where('iddaftar', $request->input('iddaftar'))
+                    ->select('jumlahpeserta')
+                    ->get();
+
+            //jumlah kapasitas
+            $jmlhkapasitas  = DB::table('kapasitas')
+            ->join('layanans','layanans.idlayanan','=','kapasitas.idlayanan')
+            ->join('daftarlayanans','daftarlayanans.idlayanan','=','layanans.idlayanan')
+            ->where('daftarlayanans.iddaftar', $request->input('iddaftar'))
+            ->get();
+                
+            $psrta = '';
+            foreach($jmlhpesertadilayanan as $jmlh){
+            $psrta  = $jmlh->jumlahpeserta;
+            }
+
+            if($jmlhpesertadipesertas == $psrta){
+                //menghitung tanggal jatuh tempo
+                $tgl1 = date('Y-m-d');
+                $tgl2 = date('Y-m-d', strtotime('+5 days', strtotime($tgl1)));
+
+                //mendapatkan total tagihan
+                $biayalayanan = DB::table('daftarlayanans')
+                ->join('layanans','layanans.idlayanan','=','daftarlayanans.idlayanan')
+                ->select('tarifpendaftaran','tarifseleksi','tarifdaftarulang','kategoriseleksi','jumlahpeserta')
+                ->where('daftarlayanans.iddaftar', $request->input('iddaftar'))
+                ->get();
+
+                $tarifpendaftaran;
+                $tarifseleksi;
+                $tarifdaftarulang;
+                $kategoriseleksi;
+                $jumlah;
+
+                foreach($biayalayanan as $biaya){
+                $tarifpendaftaran   = $biaya->tarifpendaftaran;
+                $tarifseleksi       = $biaya->tarifseleksi;
+                $tarifdaftarulang   = $biaya->tarifdaftarulang;
+                $kategoriseleksi    = $biaya->kategoriseleksi;
+                $jumlah             = $biaya->jumlahpeserta;
+                }
+
+                $jumlahbayar = '';
+                if($kategoriseleksi == 'tidak' or $kategoriseleksi == 'tidak ketat'){
+                    $totalbialayanan = $tarifpendaftaran + $tarifseleksi + $tarifdaftarulang;
+                    $jumlahbayar = $totalbialayanan * $jumlah;
+                }else{
+                    $totalbialayanan = $tarifpendaftaran + $tarifseleksi;
+                    $jumlahbayar = $totalbialayanan * $jumlah;
+                }
+
+                $data = new Tagihan();
+                $data->iddaftar = $request->input('iddaftar');
+                $data->nopembayaran = $request->input('iddaftar').date('Ymd');
+                $data->tgltagihan = date('Y-m-d');
+                $data->tgljatuhtempo = date('Y-m-d');
+                $data->status = 'belum lunas';
+                $data->jumlahbayar = $jumlahbayar;
+                $data->save();
+
+                return redirect('emailtagihan/'.$request->input('iddaftar'));
+
+                //return view('gagaltambahpeserta');
+            }else{
+                return redirect('tambahpeserta');
+            }
         }else{
-            return view('gagaltambahpeserta');
+            return view('gagaltambahpeserta');            
         }
     }
 }

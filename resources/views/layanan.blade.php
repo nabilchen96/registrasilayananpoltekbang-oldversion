@@ -1,4 +1,4 @@
-@extends( (Auth::user()->role == 'perusahaan' or Auth::user()->role == 'perorangan' ) ? 'layouts.userapp' : 'layouts.app')
+@extends( (Auth::user()->role == 'perusahaan' or Auth::user()->role == 'perorangan' ) ? 'layouts.userapp' : 'layouts.adminapp')
 @if (Auth::user()->role == 'perusahaan' or Auth::user()->role == 'perorangan')
   @section('content')
     <br>
@@ -7,9 +7,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                    <div class="alert alert-success" role="alert">
-                        <h1>Registrasi Layanan</h1>
-                    </div>
+                        <div class="alert alert-success" role="alert">
+                            <h1>Registrasi Layanan</h1>
+                        </div>
                     </div>
                     <form class="col-sm-12" action="{{url('prosesdaftarlayanan')}}" method="post">
                         @csrf
@@ -28,7 +28,7 @@
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label"></label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" id="deskripsi" rows="5"></textarea>
+                                <textarea class="form-control" id="deskripsi" rows="5" disabled></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -48,14 +48,14 @@
                             <label for="staticEmail" class="col-sm-2 col-form-label">Jadwal</label>
                             <div class="col-sm-10">
                                 <select name="idjadwal" class="form-control" id="jadwal">
-                                    <option>-Pilih Jadwal-</option>
+                                    <option value="">-Pilih Jadwal-</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Jumlah Peserta</label>
                             <div class="col-sm-10">
-                                <select name="jumlah" id="jumlah" onchange="totalHarga()" class="form-control">
+                                <select name="jumlah" id="jumlah" onchange="totalHarga()" class="form-control" required>
                                     <option>-Pilih Jumlah Peserta-</option>
                                     <option>1</option>
                                     <option>2</option>
@@ -68,7 +68,7 @@
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Total Biaya</label>
                             <div class="col-sm-10">
-                                <input type="number" disabled id="totalharga" class="form-control">
+                                <input type="text" disabled id="totalharga" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -83,12 +83,64 @@
   @endsection
 @else
   @section('content')
-    
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Layanan</h1>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                    <h3 class="card-title">DataTable with default features</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Rendering engine</th>
+                                    <th>Browser</th>
+                                    <th>Platform(s)</th>
+                                    <th>Engine version</th>
+                                    <th>CSS grade</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Trident</td>
+                                    <td>Internet
+                                        Explorer 4.0
+                                    </td>
+                                    <td>Win 95+</td>
+                                    <td> 4</td>
+                                    <td>X</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
   @endsection
 @endif
 @push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
+    function rubah(angka){
+        var reverse = angka.toString().split('').reverse().join(''),
+        ribuan = reverse.match(/\d{1,3}/g);
+        ribuan = ribuan.join('.').split('').reverse().join('');
+        return ribuan;
+    }
+    var tarif
     function isi_otomatis(){
         var idlayanan = $("#idlayanan").val();
         $.ajax({
@@ -98,11 +150,12 @@
             var json = data,
             obj = JSON.parse(json);
             if(obj.kategoriseleksi == 'tidak'){
-                $('#tarif').val(parseInt(obj.tarifpendaftaran) + parseInt(obj.tarifseleksi) + parseInt(obj.tarifdaftarulang));
+                tarif = parseInt(obj.tarifpendaftaran) + parseInt(obj.tarifseleksi) + parseInt(obj.tarifdaftarulang);
+                $('#tarif').val("Rp "+rubah(tarif));
                 $('#rinciantarif').val(
-                    "Biaya Pendaftaran : " + obj.tarifpendaftaran + "\n"
-                    +"Biaya Seleksi : " + obj.tarifseleksi + "\n"
-                    +"Biaya Daftar Ulang : " + obj.tarifdaftarulang + "\n"
+                    "Biaya Pendaftaran : Rp " + rubah(obj.tarifpendaftaran) + "\n"
+                    +"Biaya Seleksi : Rp " + rubah(obj.tarifseleksi) + "\n"
+                    +"Biaya Daftar Ulang : Rp " + rubah(obj.tarifdaftarulang) + "\n"
                 );
             }else{
                 $('#tarif').val("");
@@ -119,7 +172,7 @@
 
     function totalHarga(){
         var jumlah = $('#jumlah').val();
-        $('#totalharga').val($('#tarif').val() * jumlah);
+        $('#totalharga').val("Rp "+rubah(tarif * jumlah));
     }
 </script>
 @endpush

@@ -59,7 +59,19 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="index.html"><img src="{{ asset('imgs/logo.png') }}" alt=""></a>
+                        <a class="navbar-brand" href="{{url('')}}">
+                            {{-- <img src="{{ asset('imgs/logo.png') }}" alt=""> --}}
+                            {{-- <a href="{{ route('login') }}"><h1 style="
+                                margin: 30px;
+                                color: white;
+                                font-size: 40px;
+                            ">LPP</h1></a> --}}
+                            <img src="http://trbu.rafahcuttindo.com/wp-content/uploads/2020/03/logo_poltekbang-removebg-retina.png" style="
+                                width: 135px;
+                                margin-top : 5px;
+                                margin-bottom : 5px;
+                            ">
+                        </a>
                     </div>
         
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -68,6 +80,7 @@
                             {{-- <li><a href="{{ url('/') }}">Home</a></li>
                             <li><a href="#layanan">Layanan</a></li> --}}
                             @if (Auth::check())
+                                <li><a href="{{url('home')}}">Layanan</a></li>
                                 <li><a href="{{url('peserta')}}">Data Peserta</a></li>
                                 <li><a href="{{url('tagihan')}}">Tagihan</a></li>
                                 <li><a href="{{ url('/logout') }}"
@@ -89,7 +102,7 @@
         <footer class="footer_area">
             <div class="container">
                 <div class="pull-left">
-                    <h4><p>Copyright @2018 All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p> </h4>
+                    <h4><p>Copyright {{date('Y')}} All rights reserved</p> </h4>
                 </div>
                 <div class="pull-right">
                     <ul>
@@ -133,7 +146,6 @@
         <script src="{{ asset('jss/video_player.js') }}"></script>
         <script src="{{ asset('jss/theme.js') }}"></script>
         @stack('scripts')
-        
         
     </body>
 </html>

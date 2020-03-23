@@ -29,6 +29,10 @@ Route::get('datalayanan', function(){
     return view('ajax');
 });
 
+//penyewaan
+Route::get('penyewaan','PenyewaanController@index');
+Route::get('prosesdaftarpenyewaan','PenyewaanController@prosesdaftarpenyewaan');
+
 
 //peserta
 Route::get('peserta','PesertaController@index');
@@ -39,4 +43,8 @@ Route::post('prosestambahpeserta', 'PesertaController@prosestambahpeserta');
 
 //tagihan
 Route::get('tagihan','TagihanController@index');
+Route::get('detailtagihan/{id}','TagihanController@detailtagihan');
+
+//email
+Route::get('emailtagihan/{id}','TagihanController@kirimtagihan');
 

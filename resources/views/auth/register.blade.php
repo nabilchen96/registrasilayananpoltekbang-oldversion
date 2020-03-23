@@ -4,9 +4,16 @@
         <div class="contact_info">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-sm-6">
+                        <div class="contact_details">
+                            <div class="signup-image">
+                                <figure><img width="100%" src="imgs/signup-image.jpg" alt="sing up image"></figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
                         <div class="contact_form_left">
-                            <div class="row">
+                            <div class="row col-sm-12">
                                 <h1>Registrasi</h1>
                                 <br>
                                 <div class="">
@@ -56,11 +63,20 @@
                                                         </span>
                                                     @endif
                                                 </div>
-                                                
+                                                <div class="form-group">
+                                                    <img src="captcha.php" alt="gambar">
+                                                </div>
+                                                <div class="form-group has-feedback{{ $errors->has('captcha') ? ' has-error' : '' }}">
+                                                    <input type="text" name="captcha" value="{{old('captcha')}}" class="form-control" placeholder="Masukan Captcha">
+                                                    @if ($errors->has('captcha'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('captcha') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
                                                 {{-- <div class="form-group">
                                                     <textarea class="form-control"  id="message" rows="1" name="alamat" placeholder="Alamat"></textarea>
                                                 </div> --}}
-                                                
                                                 <div class="form-group">
                                                     <button class="btn btn-default submit_btn" type="submit">Daftar</button>
                                                 </div>
@@ -110,19 +126,23 @@
                                                     @endif
                                                 </div>
                                                 <div class="form-group">
+                                                    <img src="captcha.php" alt="gambar">
+                                                </div>
+                                                <div class="form-group has-feedback{{ $errors->has('captcha') ? ' has-error' : '' }}">
+                                                    <input type="text" name="captcha" value="{{old('captcha')}}" class="form-control" placeholder="Masukan Captcha">
+                                                    @if ($errors->has('captcha'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('captcha') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <div class="form-group">
                                                     <button class="btn btn-default submit_btn" type="submit">Daftar</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="contact_details">
-                            <div class="signup-image">
-                                <figure><img width="100%" src="imgs/signup-image.jpg" alt="sing up image"></figure>
                             </div>
                         </div>
                     </div>

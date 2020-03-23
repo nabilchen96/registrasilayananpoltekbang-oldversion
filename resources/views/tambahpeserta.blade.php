@@ -25,28 +25,29 @@
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Nama Peserta</label>
                             <div class="col-sm-10">
-                                <input type="text" name="nama" class="form-control">
+                                <input type="text" name="nama" class="form-control" minlength="3" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Tempat/Tgl Lahir</label>
                             <div class="col-sm-5">
-                                <input type="text" name="tempatlahir" class="form-control">
+                                <input type="text" name="tempatlahir" class="form-control" required>
                             </div>
                             <div class="col-sm-5">
-                                <input type="date" name="tanggallahir" class="form-control">
+                                <input type="date" name="tanggallahir" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Alamat</label>
                             <div class="col-sm-10">
-                                <textarea name="alamat" class="form-control" rows="5"></textarea>
+                                <textarea name="alamat" class="form-control" rows="5" required></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="jeniskelamin">
+                                <select class="form-control" name="jeniskelamin" required>
+                                    <option value="">-Jenis Kelamin-</option>
                                     <option value="laki-laki">Laki-laki</option>
                                     <option value="perempuan">Perempuan</option>
                                 </select>
@@ -55,25 +56,26 @@
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">NIK</label>
                             <div class="col-sm-10">
-                                <input type="text" name="nik" class="form-control">
+                                <input type="number" name="nik" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                                <input class="form-control" name="email" type="text">
+                                <input class="form-control" name="email" type="text" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">No Hp</label>
                             <div class="col-sm-10">
-                                <input type="number" name="nohp" class="form-control">
+                                <input type="number" name="nohp" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="staticEmail" class="col-sm-2 col-form-label">Ijazah Terakhir</label>
                             <div class="col-sm-10">
-                                <select class="form-control" name="ijazah">
+                                <select class="form-control" name="ijazah" required>
+                                    <option value="">-Jenjang-</option>
                                     <option>SMP</option>
                                     <option>SMA</option>
                                 </select>

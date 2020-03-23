@@ -11,11 +11,12 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="alert alert-danger" role="alert">
-                        <p>Tambah data peserta tidak dapat diproses, anda telah mendaftarkan semua peserta pada pendidikan yang dipilih. 
-                            Untuk menambah data, hapus data peserta lain atau edit data peserta jika terjadi kesalahan pada data yang diinput</p>
+                    <div class="alert alert-success" role="alert">
+                        <p>anda telah mendaftarkan semua peserta pada layanan yang dipilih. Silahkan menuju ke menu Tagihan untuk melihat
+                            tagihan anda. Untuk menambah data, hapus data peserta lain atau edit data peserta jika terjadi kesalahan pada data yang diinput</p>
                         <br>
                         <a href="{{url('peserta')}}" class="btn btn-success">Daftar Peserta</a>
+                        <a href="{{url('peserta')}}" class="btn btn-info">Tagihan</a>
                     </div>
                     <br><br><br><br>
                 </div>
