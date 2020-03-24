@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="imgs/fav-icon.png" type="image/x-icon" />
+        <link rel="icon" href="http://trbu.rafahcuttindo.com/wp-content/uploads/2020/03/favicon.ico" type="image/x-icon" />
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>SuSan - App Landing Page</title>
+        <title>Registrasi Layanan Poltekbang</title>
 
         <!-- Icon css link -->
         <link href="{{ asset('vendores/themify-icon/themify-icons.css') }}" rel="stylesheet">
@@ -45,9 +45,36 @@
             border: 2px solid black;
             color: black;
         }
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background-color: #f4f5f6;
+        }
+        .preloader .loading {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            font: 14px arial;
+        }
         </style>
+        <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $(".preloader").fadeOut();
+            })
+        </script>
     </head>
     <body>
+        <div class="preloader">
+            <div class="loading">
+                <img src="{{asset('loading2.gif')}}">
+            </div>
+        </div>
         <header class="main_menu_area">
             <nav class="navbar navbar-default">
                 <div class="container">
@@ -106,11 +133,9 @@
                 </div>
                 <div class="pull-right">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Policy</a></li>
-                        <li><a href="#">Terms</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="{{url('home')}}">Home</a></li>
+                        <li><a href="{{url('home')}}">About</a></li>
+                        <li><a href="{{url('/')}}#contact">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -140,8 +165,7 @@
         <script src="{{ asset('jss/contact.js') }}"></script>
         
         <!--gmaps Js-->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-        <script src="{{ asset('jss/gmaps.min.js') }}"></script>
+        
         
         <script src="{{ asset('jss/video_player.js') }}"></script>
         <script src="{{ asset('jss/theme.js') }}"></script>

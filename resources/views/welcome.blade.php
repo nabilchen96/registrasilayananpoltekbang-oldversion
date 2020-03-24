@@ -102,7 +102,7 @@
             </ul> 
         </div><!-- END REVOLUTION SLIDER -->
     </section>
-    <section class="sponsors_area">
+    {{-- <section class="sponsors_area">
         <div class="container">
             <div class="sponsor_slider owl-carousel">
                 <div class="item">
@@ -119,7 +119,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <section class="latest_blog_area" id="layanan">
         <div class="container">
         <div class="main_title">
